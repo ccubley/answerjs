@@ -3,7 +3,10 @@ define(function(require) {
   'use strict';
 
   var $ = require('jquery');
+  require('widgets/answer-field-picker');
 
-  $('#main').text('hello, world!');
+  $('#main').fieldpicker({
+    message: 'hello fieldpicker'
+  });
 
 });
