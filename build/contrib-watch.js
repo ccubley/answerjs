@@ -5,7 +5,7 @@ module.exports = function(grunt) {
       options: {
         livereload: true,
       },
-      files: ['src/**/*.{js,html}', 'prod/*', '<%= watch.tests.files %>'],
+      files: ['src/**/*.{js,html}', 'prod/*'],
       tasks: [],
     },
     jshintrc: {
@@ -27,10 +27,6 @@ module.exports = function(grunt) {
     styles: {
       files: 'src/**/*.styl',
       tasks: ['stylus:dev'],
-    },
-    tests: {
-      files: ['test/unit/**/*'],
-      tasks: ['jshint:test-unit', 'mocha'],
     },
   });
 
