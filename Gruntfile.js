@@ -10,7 +10,7 @@ module.exports = function(grunt) {
 
     // Tasks.
     grunt.registerTask('setup-dev',
-        'Prepare development environment', ['jshint', 'clean:prod', 'jade:dev', 'stylus:dev', 'connect:dev']);
+        'Prepare development environment', ['jshint', 'clean:prod', 'jade:dev', 'handlebars:compile', 'stylus:dev', 'connect:dev']);
 
     grunt.registerTask('dev',
         'Compile and start a dev webserver.', ['setup-dev', 'watch']);

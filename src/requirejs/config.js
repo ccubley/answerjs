@@ -7,6 +7,7 @@ require.config({
     underscore: "bower_components/lodash/dist/lodash.underscore",
     lodash: "bower_components/lodash/dist/lodash",
     tmpl: "bower_components/lodash-template-loader/loader",
+    handlebars: "bower_components/handlebars/handlebars.runtime",
 
     components: "src/modules/components",
     layouts: "src/modules/components/layouts",
@@ -22,7 +23,10 @@ require.config({
     backbone: {
       exports: "Backbone",
       deps: ["underscore", "jquery"]
-    }
+    },
+    handlebars: {
+      exports: "Handlebars"
+    },
   },
   deps: ["src/main"]
 });

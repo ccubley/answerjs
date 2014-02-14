@@ -19,6 +19,7 @@
     "selenium-webdriver": "~2.39.0",
     "selenium-chromedriver": "0.0.1",
     "grunt-contrib-jade": "~0.9.1",
-    "grunt-contrib-requirejs": "~0.4.1"
+    "grunt-contrib-requirejs": "~0.4.1",
+    "grunt-contrib-handlebars": "~0.6.1"
   }
 }

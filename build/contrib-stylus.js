@@ -11,7 +11,7 @@ module.exports = function(grunt) {
       },
       src: [
         'src/styles/app.styl',
-        'src/modules/**/*.styl',
+        'src/widgets/**/*.styl',
       ],
       dest: 'prod/app.css',
     },

@@ -28,6 +28,10 @@ module.exports = function(grunt) {
       files: 'src/**/*.styl',
       tasks: ['stylus:dev'],
     },
+    templates: {
+      files: 'src/**/*.hbs',
+      tasks: ['handlebars:compile']
+    },
   });
 
   grunt.loadNpmTasks('grunt-contrib-watch');

@@ -5,6 +5,7 @@ html
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     title AnswerJS
     link(rel='stylesheet', href='/app.css')
+    link(rel='stylesheet', href='/include/bootstrap/css/bootstrap.css')
   body
     if target == 'dev'
       script(src='/bower_components/requirejs/require.js', data-main='/src/requirejs/config')
@@ -13,5 +14,5 @@ html
     else
       script(src='/app.js')
 
-    div
+    div(class='span9')
       #main
