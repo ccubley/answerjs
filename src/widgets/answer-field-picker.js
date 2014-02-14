@@ -16,6 +16,7 @@ define(function(require) {
     },
 
     _render: function() {
+      var self = this;
       var html = template(this.options);
       this.element.html(html);
 
@@ -25,7 +26,7 @@ define(function(require) {
         opacity: 0.35,
         helper: function() {
           var modelPath = $(this).attr('modelPath');
-          var result = $('<a></a>');
+          var result = $('<a class="afp-model-attribute"></a>');
           
           result.text($(this).text());
           result.data('model-path', modelPath);
@@ -36,19 +37,38 @@ define(function(require) {
         }
       });
 
+      attributes.click(function(){
+        var modelPath = $(this).attr('modelPath');
+        $(self.element).trigger('attributeClick', { modelPath: modelPath });
+      });
+
     },
 
     _processModel: function(model) {
-      for(var entityId in model.entities)
+      var outputModel = $.extend({}, model);
+
+      outputModel.lookup = {};
+
+      for(var entityId in outputModel.entities)
       {
-        var currentEntity = model.entities[entityId];
+        var currentEntity = outputModel.entities[entityId];
+        currentEntity.entityId = entityId;
 
         for(var attributeId in currentEntity.attributes)
         {
           var currentAttribute = currentEntity.attributes[attributeId];
-          currentAttribute.modelPath = entityId + '.' + attributeId;
+          currentAttribute.entity = currentEntity;
+
+          var modelPath = entityId + '.' + attributeId;
+          currentAttribute.modelPath = modelPath;
+
+          currentAttribute.attributeId = attributeId;
+
+          outputModel.lookup[modelPath] = currentAttribute;
         }
       }
+
+      this.model = outputModel;
     },
 
   });

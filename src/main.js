@@ -4,6 +4,7 @@ define(function(require) {
 
   var $ = require('jquery');
   require('widgets/answer-field-picker');
+  require('widgets/answer-field-list');
 
   var model = {
     caption: 'Order Processing',
@@ -106,8 +107,17 @@ define(function(require) {
     },
   };
 
-  $('#main').fieldpicker({
+  $('#fieldpicker').fieldpicker({
     model: model
+  });
+
+  $('#fieldlist').fieldlist({
+    caption: 'Variables',
+    model: model
+  });
+
+  $('#fieldpicker').on('attributeClick', function(eventData, params){
+    $('#fieldlist').fieldlist('addField', params.modelPath);
   });
 
 });
