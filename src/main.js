@@ -133,13 +133,17 @@ define(function(require) {
     },
   });
 
+  var Query = require('lib/answer-query');
+  var query = new Query();
+
   $('#fieldpicker').fieldpicker({
     model: model
   });
 
   $('#fieldlist').fieldlist({
     caption: 'Variables',
-    model: model
+    model: model,
+    query: query
   });
 
   $('#fieldpicker').on('attributeClick', function(eventData, params){

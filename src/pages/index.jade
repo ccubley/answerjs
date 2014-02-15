@@ -15,9 +15,12 @@ html
     else
       script(src='/app.js')
 
-    div(class='span9')
-      #main
-      div
-        #fieldpicker
-      div(class='offset3')
-        #fieldlist
+    #widgets(class='container')
+      #fieldpicker
+      #fieldlist(class='offset3')
+      
+
+    #actions(class='container')
+      form
+        fieldset
+          #runbutton.button(class='btn btn-primary', type='button') Run
