@@ -14,7 +14,8 @@ require.config({
     layouts: "src/modules/components/layouts",
     core: "src/modules/core",
     services: "src/modules/services",
-    widgets: "src/widgets"
+    widgets: "src/widgets",
+    lib: "src/widgets"
   },
   shim: {
     "jquery-ui": {
