@@ -14,7 +14,6 @@ define(function(require) {
     },
 
     _create: function() {
-      this._processModel(this.options.model);
       this._render();
     },
 
@@ -44,7 +43,7 @@ define(function(require) {
     },
 
     addField: function(modelPath) {
-      var attribute = this.model.lookup[modelPath];
+      var attribute = this.options.model.lookup[modelPath];
       var fieldlist = this.element.find('.afl-field-list > tbody');
       var listItemHtml = listItemTemplate(attribute);
       var newField = $(listItemHtml);
@@ -89,63 +88,6 @@ define(function(require) {
       };
 
       newField.find('.afl-field-list-item-caption').click(captionEdit);
-    },
-
-    _processModelAggregations: function(model) {
-      for(var aggregationId in model.aggregations)
-      {
-        model.aggregations[aggregationId].aggregationId = aggregationId; 
-      }
-    },
-
-    _processModelTypes: function(model) {
-      for(var typeId in model.types)
-      {
-        var currentType = model.types[typeId];
-        currentType.typeId = typeId;
-
-        var aggregations = {};
-        for(var aggregationIndex in currentType.aggregations)
-        {
-          var aggregationId = currentType.aggregations[aggregationIndex];
-          aggregations[aggregationId] = model.aggregations[aggregationId];
-        }
-
-        currentType.aggregations = aggregations;
-      }
-    },
-
-    _processModel: function(model) {
-      var outputModel = $.extend({}, model);
-
-      outputModel.lookup = {};
-
-      this._processModelAggregations(model);
-
-      this._processModelTypes(model);
-
-      for(var entityId in outputModel.entities)
-      {
-        var currentEntity = outputModel.entities[entityId];
-        currentEntity.entityId = entityId;
-
-        for(var attributeId in currentEntity.attributes)
-        {
-          var currentAttribute = currentEntity.attributes[attributeId];
-          currentAttribute.entity = currentEntity;
-
-          var modelPath = entityId + '.' + attributeId;
-          currentAttribute.modelPath = modelPath;
-
-          currentAttribute.attributeId = attributeId;
-
-          currentAttribute.type = outputModel.types[currentAttribute.type];
-
-          outputModel.lookup[modelPath] = currentAttribute;
-        }
-      }
-
-      this.model = outputModel;
     },
 
   });

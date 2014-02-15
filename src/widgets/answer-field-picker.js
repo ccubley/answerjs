@@ -12,7 +12,6 @@ define(function(require) {
     },
 
     _create: function() {
-      this._processModel(this.options.model);
       this._render();
     },
 
@@ -47,33 +46,6 @@ define(function(require) {
         delay: { show: 500, hide: 100 }
       });
 
-    },
-
-    _processModel: function(model) {
-      var outputModel = $.extend({}, model);
-
-      outputModel.lookup = {};
-
-      for(var entityId in outputModel.entities)
-      {
-        var currentEntity = outputModel.entities[entityId];
-        currentEntity.entityId = entityId;
-
-        for(var attributeId in currentEntity.attributes)
-        {
-          var currentAttribute = currentEntity.attributes[attributeId];
-          currentAttribute.entity = currentEntity;
-
-          var modelPath = entityId + '.' + attributeId;
-          currentAttribute.modelPath = modelPath;
-
-          currentAttribute.attributeId = attributeId;
-
-          outputModel.lookup[modelPath] = currentAttribute;
-        }
-      }
-
-      this.model = outputModel;
     },
 
   });
