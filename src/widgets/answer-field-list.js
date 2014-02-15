@@ -5,15 +5,30 @@ define(function(require) {
   require('jqueryui');
   require('bootstrap');
 
+  var Query = require('lib/answer-query');
+
   var template = require('templates/answer-field-list');
   var listItemTemplate = require('templates/answer-field-list-item');
 
   $.widget( 'ui.fieldlist', {
     options: {
-      caption: 'Fields'
+      caption: 'Fields',
+      query: false
     },
 
     _create: function() {
+      var self = this;
+
+      this.options.query = this.options.query || new Query();
+
+      $(this.options.query).on('fieldAdded', function(event, field) {
+        self._renderAddField(field);
+      });
+
+      $(this.options.query).on('fieldRemoved', function(event, fieldId) {
+        self._renderRemoveField(fieldId);
+      });
+
       this._render();
     },
 
@@ -44,15 +59,30 @@ define(function(require) {
 
     addField: function(modelPath) {
       var attribute = this.options.model.lookup[modelPath];
+      
+      this.options.query.addField(attribute);
+    },
+
+    _renderRemoveField: function(id) {
+      var listItem = this.element.find('#' + id);
+
+      listItem.remove();
+    },
+
+    _renderAddField: function(field) {
+      var self = this;
+      var attribute = field.attribute;
       var fieldlist = this.element.find('.afl-field-list > tbody');
       var listItemHtml = listItemTemplate(attribute);
       var newField = $(listItemHtml);
 
+      newField.attr('id', field.id);
       fieldlist.append(newField);
 
       newField.find('.afl-field-list-item-delete').click(
         function() {
-          $(this).parents('.afl-field-list-item').remove();
+          var fieldId = $(this).parents('.afl-field-list-item').attr('id');
+          self.options.query.removeField(fieldId);
         }
       );
 
