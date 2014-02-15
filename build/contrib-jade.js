@@ -2,6 +2,7 @@ module.exports = function(grunt) {
 
   grunt.config.set('jade', {
     options: {
+      pretty: true,
       data: {
         target: '<%= grunt.task.current.target %>',
       }
