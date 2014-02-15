@@ -8,12 +8,10 @@
             {{#each this.attributes}}
               {{#unless this.hidden}}
                 <li class="afp-attribute" modelPath="{{this.modelPath}}">
+                  <span class="afp-attribute-caption">{{this.caption}}</span>
                   {{#if this.description}}
                     <i class="fa fa-info-circle afp-attribute-info" data-placement="right" data-trigger="hover" data-title="{{this.caption}}" data-content="{{this.description}}"></i>
-                  {{else}}
-                    <i class="fa fa-info-circle afp-attribute-info-none"></i>
                   {{/if}}
-                  <span class="afp-attribute-caption">{{this.caption}}</span>
                 </li>
               {{/unless}}
             {{/each}}
