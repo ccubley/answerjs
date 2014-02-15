@@ -3,6 +3,7 @@ define(function(require) {
 
   var $ = require('jquery');
   require('jqueryui');
+  require('bootstrap');
 
   var template = require('templates/answer-field-picker');
 
@@ -40,6 +41,10 @@ define(function(require) {
       attributes.click(function(){
         var modelPath = $(this).attr('modelPath');
         $(self.element).trigger('attributeClick', { modelPath: modelPath });
+      });
+
+      $('.afp-attribute-info').popover({
+        delay: { show: 500, hide: 100 }
       });
 
     },

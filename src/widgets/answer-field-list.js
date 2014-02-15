@@ -3,6 +3,7 @@ define(function(require) {
 
   var $ = require('jquery');
   require('jqueryui');
+  require('bootstrap');
 
   var template = require('templates/answer-field-list');
   var listItemTemplate = require('templates/answer-field-list-item');
@@ -34,6 +35,12 @@ define(function(require) {
           self.addField(modelPath);
         },
       });
+
+      fieldListElement.find('tbody').sortable({
+        helper: function(event, element) {
+          return $(element).find('.afl-field-list-item-caption').clone();
+        },
+      });
     },
 
     addField: function(modelPath) {
@@ -47,6 +54,13 @@ define(function(require) {
       newField.find('.afl-field-list-item-delete').click(
         function() {
           $(this).parents('.afl-field-list-item').remove();
+        }
+      );
+
+      newField.find('.afl-aggregation-menu-item').click(
+        function() {
+          var aggregationId = $(this).data('aggregation-id');
+          alert(aggregationId);
         }
       );
 
@@ -77,10 +91,38 @@ define(function(require) {
       newField.find('.afl-field-list-item-caption').click(captionEdit);
     },
 
+    _processModelAggregations: function(model) {
+      for(var aggregationId in model.aggregations)
+      {
+        model.aggregations[aggregationId].aggregationId = aggregationId; 
+      }
+    },
+
+    _processModelTypes: function(model) {
+      for(var typeId in model.types)
+      {
+        var currentType = model.types[typeId];
+        currentType.typeId = typeId;
+
+        var aggregations = {};
+        for(var aggregationIndex in currentType.aggregations)
+        {
+          var aggregationId = currentType.aggregations[aggregationIndex];
+          aggregations[aggregationId] = model.aggregations[aggregationId];
+        }
+
+        currentType.aggregations = aggregations;
+      }
+    },
+
     _processModel: function(model) {
       var outputModel = $.extend({}, model);
 
       outputModel.lookup = {};
+
+      this._processModelAggregations(model);
+
+      this._processModelTypes(model);
 
       for(var entityId in outputModel.entities)
       {
@@ -96,6 +138,8 @@ define(function(require) {
           currentAttribute.modelPath = modelPath;
 
           currentAttribute.attributeId = attributeId;
+
+          currentAttribute.type = outputModel.types[currentAttribute.type];
 
           outputModel.lookup[modelPath] = currentAttribute;
         }

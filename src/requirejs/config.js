@@ -8,6 +8,7 @@ require.config({
     lodash: "bower_components/lodash/dist/lodash",
     tmpl: "bower_components/lodash-template-loader/loader",
     handlebars: "bower_components/handlebars/handlebars.runtime",
+    bootstrap: "include/bootstrap/js/bootstrap",
 
     components: "src/modules/components",
     layouts: "src/modules/components/layouts",
@@ -18,7 +19,11 @@ require.config({
   shim: {
     "jquery-ui": {
       exports: "$",
-      deps: ['jquery']
+      deps: ["jquery"]
+    },
+    bootstrap: {
+      deps: ["jquery"],
+      exports: "$.fn.dropdown"
     },
     backbone: {
       exports: "Backbone",

@@ -8,33 +8,96 @@ define(function(require) {
 
   var model = {
     caption: 'Order Processing',
+    aggregations: {
+      count: {
+        caption: 'Count',
+        descriptionFormat: 'Count of #{caption}',
+      },
+      countDistinct: {
+        caption: 'Count (Distinct)',
+        descriptionFormat: 'Distinct Count of #{caption}',
+      },
+      sum: {
+        caption: 'Sum',
+        descriptionFormat: 'Sum of #{caption}',
+      },
+      average: {
+        caption: 'Average',
+        descriptionFormat: 'Average of #{caption}',
+      },
+      min: {
+        caption: 'Minimum',
+        descriptionFormat: 'Minimum of #{caption}',
+      },
+      max: {
+        caption: 'Maximum',
+        descriptionFormat: 'Maximum of #{caption}',
+      },
+      stdev: {
+        caption: 'Standard Deviation',
+        descriptionFormat: 'Standard Deviation of #{caption}',
+      }
+    },
+
+    types: {
+      id: {
+        comparisons: ['equals', 'notEquals'],
+        aggregations: ['count', 'countDistinct'],
+      },
+      integer: {
+        comparisons: ['equals', 'notEquals', 'lessThan', 'greaterThan', 'lessThanOrEqual', 'greaterThanOrEqual'],
+        aggregations: ['count', 'countDistinct', 'sum', 'average', 'min', 'max', 'stdev'],
+      },
+      money: {
+        comparisons: ['equals', 'notEquals', 'lessThan', 'greaterThan', 'lessThanOrEqual', 'greaterThanOrEqual'],
+        aggregations: ['count', 'countDistinct', 'sum', 'average', 'min', 'max', 'stdev'],
+      },
+      string: {
+        comparisons: ['equals', 'notEquals', 'contains', 'beginsWith', 'endsWith'],
+        aggregations: ['count', 'countDistinct'],
+      },
+      date: {
+        comparisons: ['equals', 'not-equals', 'before', 'after', 'onOrBefore', 'onOrAfter', 'between'],
+        aggregations: ['count', 'countDistinct'],
+      },
+    },
     entities: {
       customers: {
         caption: 'Customers',
         attributes: {
           customerId: {
-            caption: 'Customer ID'
+            caption: 'Customer ID',
+            type: 'id'
           },
           firstName: {
-            caption: 'First Name'
+            caption: 'First Name',
+            description: 'Customer\'s first name.',
+            type: 'string',
           },
           lastName: {
-            caption: 'Last Name'
+            caption: 'Last Name',
+            description: 'Customer\'s last name.',
+            type: 'string',
           },
           phoneNumber: {
-            caption: 'Phone Number'
+            caption: 'Phone Number',
+            type: 'string',
           },
           address: {
-            caption: 'Address'
+            caption: 'Address',
+            type: 'string',
           },
           city: {
-            caption: 'City'
+            caption: 'City',
+            type: 'string',
           },
           state: {
-            caption: 'State'
+            caption: 'State',
+            type: 'string',
           },
           zip: {
-            caption: 'ZIP Code'
+            caption: 'ZIP Code',
+            type: 'string',
           },
         },
       },
@@ -43,16 +106,21 @@ define(function(require) {
         caption: 'Products',
         attributes: {
           productId: {
-            caption: 'Product ID'
+            caption: 'Product ID',
+            type: 'id',
           },
           name: {
-            caption: 'Product Name'
+            caption: 'Product Name',
+            type: 'string',
           },
           description: {
-            caption: 'Description'
+            caption: 'Description',
+            type: 'string',
           },
           unitPrice: {
-            caption: 'Unit Price'
+            caption: 'Unit Price',
+            description: 'Unit price of the product in USD.',
+            type: 'money',
           },
         },
       },
@@ -61,16 +129,21 @@ define(function(require) {
         caption: 'Orders',
         attributes: {
           orderId: {
-            caption: 'Order ID'
+            caption: 'Order ID',
+            type: 'id',
           },
           customerId: {
-            caption: 'Customer ID'
+            caption: 'Customer ID',
+            type: 'id',
           },
           orderDate: {
-            caption: 'Order Date'
+            caption: 'Order Date',
+            description: 'Date the order was placed.',
+            type: 'date',
           },
           status: {
-            caption: 'Order Status'
+            caption: 'Order Status',
+            type: 'id',
           },
         },
       },
@@ -80,16 +153,20 @@ define(function(require) {
         attributes: {
           orderDetailId: {
             caption: 'Order Detail ID',
-            hidden: true
+            type: 'id',
+            hidden: true,
           },
           orderId: {
-            caption: 'Order ID'
+            caption: 'Order ID',
+            type: 'id',
           },
           productId: {
-            caption: 'Product ID'
+            caption: 'Product ID',
+            type: 'id',
           },
           quantity: {
-            caption: 'Quantity'
+            caption: 'Quantity',
+            type: 'integer',
           },
         },
       },
@@ -99,7 +176,8 @@ define(function(require) {
         hidden: true,
         attributes: {
           configId: {
-            caption: 'Config ID'
+            caption: 'Config ID',
+            type: 'id',
           },
         },
       },

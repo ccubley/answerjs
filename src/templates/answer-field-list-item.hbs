@@ -1,6 +1,17 @@
 <tr class="afl-field-list-item">
-  <td><button class="afl-field-list-item-delete close">&times;</button></td>
-  <td>{{entity.caption}}</td>
-  <td>{{caption}}</td>
-  <td><a class="afl-field-list-item-caption" href="#">{{caption}}</a></td>
+  <td class="afl-field-list-item-cell-delete"><button class="afl-field-list-item-delete close">&times;</button></td>
+  <td class="afl-field-list-item-cell-entity">{{entity.caption}}</td>
+  <td class="afl-field-list-item-cell-attribute">{{caption}}</td>
+  <td class="afl-field-list-item-cell-caption"><a class="afl-field-list-item-caption" href="#">{{caption}}</a></td>
+  <td class="afl-field-list-item-cell-options">
+  	<div class="dropdown">
+  		<a class="afl-field-list-item-function pull-right" data-toggle="dropdown" href="#">&fnof;(&xscr;)</a>
+  		<ul class="dropdown-menu" role="menu">
+  			<li><a class="afl-aggregation-menu-item" tabindex="-1" href="#" data-aggregation-id="none">None</a></li>
+  			{{#each type.aggregations}}
+					<li><a class="afl-aggregation-menu-item" tabindex="-1" href="#" data-aggregation-id="{{aggregationId}}">{{caption}}</a></li>
+  			{{/each}}
+  		</ul>
+  	</div>
+  </td>
 </tr>
