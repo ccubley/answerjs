@@ -13,7 +13,8 @@ define(function(require) {
       return uuid;
   }
 
-  var Query = function Query(){
+  var Query = function Query(model){
+    this.model = model;
     this.fields = {};
   };
 
@@ -42,7 +43,8 @@ define(function(require) {
     var field = this.fields[id];
 
     var previousAggregationId = field.aggregationId;
-    field.aggregationId = aggregationId;
+
+    field.aggregation = this.model.aggregations[aggregationId];
 
     $(this).trigger('fieldAggregationChanged', {
       field: field,

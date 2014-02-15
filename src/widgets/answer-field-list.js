@@ -1,6 +1,7 @@
 define(function(require) {
   'use strict';
 
+  var _ = require('lodash');
   var $ = require('jquery');
   require('jqueryui');
   require('bootstrap');
@@ -19,7 +20,7 @@ define(function(require) {
     _create: function() {
       var self = this;
 
-      this.options.query = this.options.query || new Query();
+      this.options.query = this.options.query || new Query(this.options.model);
 
       $(this.options.query).on('fieldAdded', function(event, field) {
         self._renderAddField(field);
@@ -27,6 +28,23 @@ define(function(require) {
 
       $(this.options.query).on('fieldRemoved', function(event, fieldId) {
         self._renderRemoveField(fieldId);
+      });
+
+      $(this.options.query).on('fieldAggregationChanged', function(event, params) {
+        var field = params.field;
+
+        if(field.aggregation === false) {
+          field.caption = field.attribute.caption;
+        } else {
+          field.caption = _.template(
+            field.aggregation.descriptionFormat, 
+            field.attribute, 
+            { 
+              interpolate: /\#\{([\s\S]+?)\}/g 
+            });
+        }
+
+        self._renderFieldChanged(field);
       });
 
       this._render();
@@ -63,6 +81,13 @@ define(function(require) {
       this.options.query.addField(attribute);
     },
 
+    _renderFieldChanged: function(field) {
+      var listItem = this.element.find('#' + field.id);
+
+      var captionElement = listItem.find('.afl-field-list-item-caption');
+      captionElement.text(field.caption);
+    },
+
     _renderRemoveField: function(id) {
       var listItem = this.element.find('#' + id);
 
@@ -89,7 +114,8 @@ define(function(require) {
       newField.find('.afl-aggregation-menu-item').click(
         function() {
           var aggregationId = $(this).data('aggregation-id');
-          alert(aggregationId);
+          var fieldId = newField.attr('id');
+          self.options.query.setFieldAggregation(fieldId, aggregationId);
         }
       );
 

@@ -8,7 +8,7 @@ define(function(require) {
 
   var model = require('order-processing-model');
   var Query = require('lib/answer-query');
-  var query = new Query();
+  var query = new Query(model);
 
   $('#fieldpicker').fieldpicker({
     model: model
@@ -22,6 +22,10 @@ define(function(require) {
 
   $('#fieldpicker').on('attributeClick', function(eventData, params){
     $('#fieldlist').fieldlist('addField', params.modelPath);
+  });
+
+  $('#runbutton').click(function() {
+    console.log(query);
   });
 
 });
