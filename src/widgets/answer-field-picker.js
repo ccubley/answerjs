@@ -20,6 +20,19 @@ define(function(require) {
       var html = template(this.options);
       this.element.html(html);
 
+      var descriptions = this.element.find('.afp-attribute-info');
+      descriptions
+        .click(function (e){
+          e.preventDefault();
+          return false;
+        })
+        .popover({
+          delay: {
+            show: 500,
+            hide: 100
+          }
+        });
+
       var attributes = this.element.find('.afp-attribute');
       attributes.draggable({ 
         revert: false,
@@ -41,11 +54,6 @@ define(function(require) {
         var modelPath = $(this).attr('modelPath');
         $(self.element).trigger('attributeClick', { modelPath: modelPath });
       });
-
-      $('.afp-attribute-info').popover({
-        delay: { show: 500, hide: 100 }
-      });
-
     },
 
   });
