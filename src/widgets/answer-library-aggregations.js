@@ -2,7 +2,6 @@ define(function(require) {
   'use strict';
 
   var libraryAggregations = {
-      none: false,
       count: {
         caption: 'Count',
         descriptionFormat: 'Count of #{caption}',

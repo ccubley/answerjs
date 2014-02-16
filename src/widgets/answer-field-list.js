@@ -33,7 +33,7 @@ define(function(require) {
       $(this.options.query).on('fieldAggregationChanged', function(event, params) {
         var field = params.field;
 
-        if(field.aggregation === false) {
+        if(params.aggregationId === 'none') {
           field.caption = field.attribute.caption;
         } else {
           field.caption = _.template(
