@@ -86,6 +86,10 @@ define(function(require) {
 
       var captionElement = listItem.find('.afl-field-list-item-caption');
       captionElement.text(field.caption);
+
+      if(field.aggregation) {
+        alert('start me up');
+      }
     },
 
     _renderRemoveField: function(id) {
