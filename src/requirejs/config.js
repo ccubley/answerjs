@@ -10,10 +10,6 @@ require.config({
     handlebars: "bower_components/handlebars/handlebars.runtime",
     bootstrap: "include/bootstrap/js/bootstrap",
 
-    components: "src/modules/components",
-    layouts: "src/modules/components/layouts",
-    core: "src/modules/core",
-    services: "src/modules/services",
     widgets: "src/widgets",
     lib: "src/widgets"
   },

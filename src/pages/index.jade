@@ -1,8 +1,9 @@
 doctype html
-html
+html(lang='en')
   head
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title AnswerJS
     link(rel='stylesheet', href='/app.css')
     link(rel='stylesheet', href='/include/bootstrap/css/bootstrap.css')
@@ -15,12 +16,18 @@ html
     else
       script(src='/app.js')
 
-    #widgets(class='container')
-      #fieldpicker
-      #fieldlist(class='offset3')
+    div(class='container')
+      h1 AnswerJS Demo
+      div(class='row')
+        #widgets
+          div(class='span3')
+            #fieldpicker
+          div(class='span9')
+            #fieldlist
       
-
-    #actions(class='container')
-      form
-        fieldset
-          #runbutton.button(class='btn btn-primary', type='button') Run
+      div(class='row')
+        #actions
+          form
+            fieldset
+              div(class='span2')
+                #runbutton.button(class='btn btn-primary', type='button') Run
